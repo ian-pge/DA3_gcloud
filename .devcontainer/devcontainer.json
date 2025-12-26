@@ -15,7 +15,7 @@
     "-v",
     "/run/user/1000/wayland-1:/tmp/wayland-1",
     "-v",
-    "${localEnv:HOME}/PhD/datasets/gcloud:/workspace/datasets",
+    "${localEnv:HOME}/dataset:/workspace/dataset",
     "--net",
     "host"
   ],
