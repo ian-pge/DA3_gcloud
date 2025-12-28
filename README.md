@@ -3,7 +3,7 @@
 ## 1. Installation
 
 ```bash
-bash installation.sh
+./installation.sh
 ```
 
 ## 2. Run
