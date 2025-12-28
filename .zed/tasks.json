@@ -1,0 +1,71 @@
+[
+  {
+    "label": "DevPod: Up",
+    "command": "devpod up ${ZED_WORKTREE_ROOT}",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+  },
+  {
+    "label": "DevPod: Recreate",
+    "command": "devpod up ${ZED_WORKTREE_ROOT} --recreate",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always",
+  },
+  {
+    "label": "DevPod: Reset",
+    "command": "devpod up ${ZED_WORKTREE_ROOT} --reset",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always",
+  },
+  {
+    "label": "DevPod: Up gcloud",
+    "command": "devpod up ${ZED_WORKTREE_ROOT} --provider ssh",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+  },
+  {
+    "label": "DevPod: Recreate gcloud",
+    "command": "devpod up ${ZED_WORKTREE_ROOT} --provider ssh --recreate",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always",
+  },
+  {
+    "label": "Runpod: open remote /workspace (edit IP:PORT in modal)",
+    "command": "bash",
+    "args": ["-lc", "zed ssh://root@213.181.111.2:42797/workspace"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+  },
+  {
+    "label": "Runpod: start Mutagen drop-folders (edit IP:PORT in modal)",
+    "command": "bash",
+    "args": [
+      "-lc",
+      "set -euo pipefail\nIP=213.181.111.2\nPORT=42797\nKEY=\"$HOME/.ssh/id_ed25519\"\n\nmkdir -p \"$HOME/runpod_drop/upload\" \"$HOME/runpod_drop/download\"\n\n# ensure remote dirs exist\nssh -i \"$KEY\" -p \"$PORT\" root@\"$IP\" \"mkdir -p /workspace/inbox /workspace/outbox\"\n\n# reset sessions\nmutagen sync terminate runpod-upload runpod-download >/dev/null 2>&1 || true\n\n# upload: local -> remote\nmutagen sync create --name runpod-upload --sync-mode=one-way-replica \\\n  \"$HOME/runpod_drop/upload\" root@\"$IP\":\"$PORT\":/workspace/inbox\n\n# download: remote -> local\nmutagen sync create --name runpod-download --sync-mode=one-way-replica \\\n  root@\"$IP\":\"$PORT\":/workspace/outbox \"$HOME/runpod_drop/download\"\n\necho \"OK: drop files into ~/runpod_drop/upload (goes to /workspace/inbox)\"\necho \"OK: put files into /workspace/outbox (arrives in ~/runpod_drop/download)\"\nmutagen sync list\n",
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+  },
+  {
+    "label": "Runpod: monitor Mutagen sessions",
+    "command": "bash",
+    "args": [
+      "-lc",
+      "mutagen sync monitor runpod-upload; mutagen sync monitor runpod-download",
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+  },
+  {
+    "label": "Runpod: stop Mutagen sessions",
+    "command": "bash",
+    "args": ["-lc", "mutagen sync terminate runpod-upload runpod-download"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+  },
+]
