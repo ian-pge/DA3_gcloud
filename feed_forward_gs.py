@@ -8,8 +8,8 @@ sys.path.append("/workspace/src")
 from depth_anything_3.api import DepthAnything3
 
 # --- CONFIGURATION ---
-INPUT_DIR = "/workspace/datasets/small_batch/images/"
-OUTPUT_DIR = "/workspace/output/instant_splat_giant"
+INPUT_DIR = "/root/DA3_gcloud/Depth-Anything-3/assets/examples/SOH"
+OUTPUT_DIR = "/root/instant_splat_giant"
 
 # CRITICAL: You must use 'da3-giant' or 'da3nested-giant-large'.
 # 'da3-large' DOES NOT support Gaussian Splatting.
