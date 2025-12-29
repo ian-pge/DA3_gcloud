@@ -8,6 +8,7 @@ git clone --recurse-submodules https://github.com/ian-pge/DA3_gcloud.git
 ## 2. Installation
 
 ```bash
+cd DA3_gcloud/
 ./installation.sh
 ```
 
@@ -15,6 +16,3 @@ git clone --recurse-submodules https://github.com/ian-pge/DA3_gcloud.git
 ```bash
 python3 feed_forward_gs.py
 ```
-
-
-
