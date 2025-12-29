@@ -1,4 +1,3 @@
-git clone --recurse-submodules git@github.com:ian-pge/DA3_gcloud.git
 python -m pip install --upgrade pip
 python -m pip install --ignore-installed "blinker>=1.9.0"
 cd DA3_gcloud/
